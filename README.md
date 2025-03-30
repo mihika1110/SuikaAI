@@ -58,7 +58,7 @@ Controls:
 - Right Click: Shoot fruit
 - I: Toggle AI mode
 - YOU WILL SEE A SCREEN LIKE THIS
-
+![Image](https://github.com/user-attachments/assets/cad1f7b5-baa0-461f-b319-6e906d619164)
 - T: Toggle training mode
 - YOU WILL SEE A SCREEN LIKE THIS
 - 
