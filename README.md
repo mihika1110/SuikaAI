@@ -61,7 +61,7 @@ Controls:
 ![Image](https://github.com/user-attachments/assets/cad1f7b5-baa0-461f-b319-6e906d619164)
 - T: Toggle training mode
 - YOU WILL SEE A SCREEN LIKE THIS
-- 
+  ![Image](https://github.com/user-attachments/assets/90362c97-0823-4f00-b8ce-4a2b1e5007d6)
 - ESC: Quit game
 
 👥 Contributors
