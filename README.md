@@ -60,7 +60,7 @@ Ritu Kumari Singh (2301CS75)
 
 Parul Shrivastava (2301CS74)
 
-Mihika Saxena (2301CS31)
+Mihika (2301CS31)
 
 Pragya Mahajan (2302CS05)
 
