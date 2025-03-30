@@ -57,7 +57,11 @@ Controls:
 - Left Click: Drop fruit
 - Right Click: Shoot fruit
 - I: Toggle AI mode
+- YOU WILL SEE A SCREEN LIKE THIS
+
 - T: Toggle training mode
+- YOU WILL SEE A SCREEN LIKE THIS
+- 
 - ESC: Quit game
 
 👥 Contributors
