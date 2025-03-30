@@ -11,8 +11,8 @@ from sprites import FruitSprite, ExplosionSprite
 
 
 _FRUITS_DEF_ORIGINAL = [
-    # le rang dans cette liste sert de kind/points/collision_type;
-    # valeur 0 réservée aux types sans handlers.
+    # The rank in this list serves as kind/points/collision_type;  
+    # Value 0 is reserved for types without handlers.  
     None,       
     {'mass':5,  'radius':30,  'name':'cerise' },
     {'mass':7,  'radius':40,  'name':'fraise' },
@@ -67,13 +67,13 @@ VISI = 'visi'
 _FRUIT_MODES = {
     MODE_WAIT: {
         COLLISION_CAT: CAT_FRUIT_WAIT,
-        COLLISION_MASK: 0x00, # collision avec les murs uniqement
+        COLLISION_MASK: 0x00, # Collision with walls only  
         VISI: VISI_NORMAL,
         BODY_TYPE: pm.Body.KINEMATIC
     },
     MODE_FIRST_DROP: {
         COLLISION_CAT: CAT_FRUIT_DROP,
-        COLLISION_MASK: CAT_FRUIT, # collision avec les fruits et les murs, mais pas avec MAXLINE ni autres fruits FIRST_DROP
+        COLLISION_MASK: CAT_FRUIT, # Collision with fruits and walls, but not with MAXLINE or other fruits FIRST_DROP  
         VISI: VISI_NORMAL,
         BODY_TYPE: pm.Body.KINEMATIC
     },
@@ -91,13 +91,14 @@ _FRUIT_MODES = {
     },
     MODE_MERGE: {
         COLLISION_CAT: CAT_FRUIT_MERGE,
-        COLLISION_MASK: 0x00,   # collision avec les murs uniqement
+        COLLISION_MASK: 0x00,   # Collision with walls only  
+
         VISI: VISI_NORMAL,
         BODY_TYPE: pm.Body.KINEMATIC
     },
     MODE_REMOVED: {
         COLLISION_CAT: CAT_FRUIT_REMOVED,
-        COLLISION_MASK: 0x00,   # collision avec les murs uniqement
+        COLLISION_MASK: 0x00,   # Collision with walls only  
         VISI: VISI_HIDDEN,
         BODY_TYPE: pm.Body.KINEMATIC
     }
@@ -111,9 +112,9 @@ def _get_new_id():
     return _g_fruit_id
 
 
-# POUR DEBUG : changements de mode autorisés
+# FOR DEBUG: Mode changes allowed 
 g_valid_transitions = {
-    MODE_WAIT : (MODE_FIRST_DROP, MODE_NORMAL, MODE_REMOVED),    # mode initial à la creation
+    MODE_WAIT : (MODE_FIRST_DROP, MODE_NORMAL, MODE_REMOVED),    # Initial mode at creation  
     MODE_FIRST_DROP : (MODE_NORMAL, MODE_MERGE, MODE_REMOVED),
     MODE_NORMAL : (MODE_MERGE, MODE_DRAG, MODE_REMOVED),
     MODE_DRAG : (MODE_NORMAL, MODE_MERGE, MODE_REMOVED),
@@ -136,14 +137,12 @@ class AnimatedCircle( pm.Circle ):
         self._radius_ref = self.radius
     
     def grow_start( self ):
-        """lance une animation qui fait varier le rayon en fonction du temps
-        """
+        """Starts an animation that varies the radius over time."""
         if( self._grow_start is None ):
             self._grow_start = utils.now()
 
     def update_animation(self):
-        """modifie le rayon du cercle
-        """
+        """Modifies the radius of the circle."""
         if( not self._grow_start ):
             return
         t = utils.now()-self._grow_start
@@ -155,8 +154,8 @@ class AnimatedCircle( pm.Circle ):
 
 class Fruit( object ):
     def __init__(self, space, position, on_remove=None, kind=0, mode=MODE_WAIT):
-        # espece aléatoire si non spécifiée
-        assert kind<=nb_fruits(), "type de fruit inconnu"
+        # Random species if not specified  
+        assert kind<=nb_fruits(), "Unknown fruit type"  
         assert position
         if( kind<=0 ):
             kind = random_kind()
@@ -189,7 +188,7 @@ class Fruit( object ):
         assert(    self._body is None 
                and self._shape is None 
                and len(self._sprites)==0
-               and self._fruit_mode == MODE_REMOVED), "ressources non libérées"
+               and self._fruit_mode == MODE_REMOVED), "Resources not released"
 
 
     def __repr__(self):
@@ -197,15 +196,14 @@ class Fruit( object ):
 
 
     def _make_shape(self, radius, mass, position):
-        """ cree le body/shape pymunk pour la simulation physique
-        """
+        """Creates the pymunk body/shape for the physics simulation."""
         body = pm.Body(body_type = pm.Body.KINEMATIC)
         body.position = position
         shape = AnimatedCircle(body=body, radius=radius)
         shape.mass = mass
         shape.friction = FRICTION
         shape.elasticity = ELASTICITY_FRUIT
-        #  ajoute fruit_id comme attribut custom de l'objet pymunk 
+        # Adds fruit_id as a custom attribute of the pymunk object  
         shape.fruit = self
         return body, shape
 
@@ -221,7 +219,7 @@ class Fruit( object ):
             sprite.delete()
         self._sprites = {}
 
-    # sert uniquement à deplacer le fruit en attente (next_fruit)
+    # Only used to move the pending fruit (next_fruit)  
     def on_window_resize(self, width, height):
         if(self._fruit_mode != MODE_WAIT):
             print(f"{self} WARNING: on_resize() ignored in mode {self._fruit_mode}")
@@ -284,26 +282,25 @@ class Fruit( object ):
         self._fruit_mode = mode
         attrs = _FRUIT_MODES[self._fruit_mode]
 
-        # DYNAMIC ou KINEMATIC
+        # DYNAMIC or KINEMATIC  
         self._body.body_type = attrs[BODY_TYPE]
 
-        # sprites visibility
+        # Sprites visibility  
         for s in self._sprites.values( ):
             s.visibility = attrs[VISI]
 
-        # modifie les règkes de collision
+        # Modifies the collision rules  
         self._shape.filter = pm.ShapeFilter(
             categories= attrs[COLLISION_CAT],
             mask = attrs[COLLISION_MASK] | CAT_WALLS )  # collision systematique avec les murs
 
 
     def update(self):
-        """met à jour le sprite du fruit à partir de la simulation physique et autres
-        """
+        """Updates the fruit's sprite based on the physics simulation and other factors."""
         if( self.removed or self._is_deleted() ):
             return
         (x, y) = self._body.position
-        degres = -180/3.1416 * self._body.angle  # pymunk et pyglet ont un sens de rotation opposé
+        degres = -180/3.1416 * self._body.angle  # pymunk and pyglet have opposite rotation directions  
         for s in self._sprites.values():
             s.update( x=x, y=y, rotation=degres, on_animation_stop=None )
         self._shape.update_animation()
@@ -318,21 +315,20 @@ class Fruit( object ):
 
 
     def drop(self):
-        """met l'objet en mode dynamique pour qu'il tombe et active les collisions"""
+        """Sets the object to dynamic mode so it falls and enables collisions."""  
         self._body.velocity = (0, -INITIAL_VELOCITY)
         self._set_mode( MODE_FIRST_DROP )
         self._shape.collision_type = COLLISION_TYPE_FIRST_DROP
 
 
     def normal(self):
-        """met l'objet en mode dynamique pour qu'il tombe et active les collisions"""
+        """Sets the object to dynamic mode so it falls and enables collisions."""  
         self._set_mode( MODE_NORMAL )
         self._shape.collision_type = self._kind
 
 
     def fade_in(self):
-        """ fait apparaitre le sprite avec un effet d'agrandissement et de transparence
-        """
+        """Makes the sprite appear with a scaling and transparency effect."""  
         if(self.removed):
             return
         #print( f"{self}.fade_in()")
@@ -359,15 +355,15 @@ class Fruit( object ):
     def drag_to(self, cursor, dt):
         if( self._fruit_mode not in [MODE_NORMAL, MODE_DRAG] ):
             return
-        assert self._drag_offset,   "initialisation incorrecte du mode drag"
-        assert self._fruit_mode == MODE_DRAG,     "mode drag non initialisé"
+        assert self._drag_offset,   "Incorrect initialization of drag mode"  
+        assert self._fruit_mode == MODE_DRAG,     "Drag mode not initialized"  
         self.set_velocity_to( dest= cursor-self._drag_offset, delay=dt*10 )
 
 
     def merge_to(self, dest):
         if( self._fruit_mode==MODE_MERGE):
             return
-        self._set_mode( MODE_MERGE )  # plus de collisions avec les fruits
+        self._set_mode( MODE_MERGE )  # No more collisions with fruits  
         self.set_velocity_to(dest, delay=MERGE_DELAY)
         pg.clock.schedule_once(lambda dt : self.remove(), delay=MERGE_DELAY )
 
@@ -399,9 +395,9 @@ class Fruit( object ):
         x, y = self._body.position
         return y < -WINDOW_HEIGHT 
     
-    # retire le fruit du jeu. l'objet ne doit plus être utilisé ensuite.
+    # Removes the fruit from the game. The object should no longer be used afterward.  
     def remove(self):
-        # callback optionnel ( ex: gestion du score )
+        # Optional callback (e.g., score management)  
         if(self._on_remove ):
             self._on_remove( self )
         self._set_mode(MODE_REMOVED)
@@ -435,11 +431,10 @@ class ActiveFruits(object):
             f.update()
 
     def prepare_next(self, kind):
-        """Cree un fruit en attente de largage
-        """
+        """Creates a fruit waiting to be dropped."""
         assert( not self._is_gameover )
         if( self._next_fruit ):
-            print("next_fruit deja present")
+            print(("next_fruit already present"))
             return
         self._next_fruit = Fruit(space=self._space,
                                  kind=kind, 
@@ -491,14 +486,14 @@ class ActiveFruits(object):
         self._score += f.points
 
     def explose_seq(self, dt):
-        """fait exploser les fruits en commençant par le plus récent
-        """
-        # cherche le fruit non explosé le plus ancien
+        """Makes the fruits explode, starting with the most recent one."""  
+        # Searches for the oldest non-exploded fruit  
         explosables = [ i for i,f in self._fruits.items() if f._fruit_mode in [MODE_NORMAL, MODE_FIRST_DROP] ]
         if( explosables ):
             explosables.sort(reverse=True )
             self._fruits[explosables[0]].explose()
-        # continue tant qu'il reste des fruits
+        # Finds the oldest non-exploded fruit  
+        # Continues as long as there are fruits remaining  
         if( self._fruits ):
             pg.clock.schedule_once( self.explose_seq, GAMEOVER_ANIMATION_INTERVAL )
 
@@ -521,7 +516,7 @@ class ActiveFruits(object):
                 print( f"WARNING: {f} has left the game" )
                 f.remove()
 
-        # supprime les références aux fruits REMOVED (pour garbage collection)
+        # Removes references to REMOVED fruits (for garbage collection)  
         removed = [f.id for f in self._fruits.values() if (all_fruits or f.removed) ]
         for id in removed:
             del self._fruits[id]        # should trigger fruit.__del__()
