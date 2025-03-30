@@ -85,7 +85,7 @@ class BoxElement(object):
                 self.body.angular_velocity = d_angle / (dt * WALLS_DAMPING)
 
     def update(self):
-        """ Met a jour l'objet graphique à partir de la simulation physique
+        """ Updates the graphics object from the physics simulation
         """
         (a, b) = self.world_coords()
         self.line.x, self.line.y = round(a[0]), round(a[1])
@@ -96,7 +96,7 @@ class BoxElement(object):
         space.add( self.body, self.segment )
 
 
-    # methodes implementées dans les sous classes
+    # methods implemented in subclasses
     def bocal_position_func(self, w, h): 
         """ Element position relative to container center
         """
@@ -373,14 +373,14 @@ class Bocal(object):
             self._body.velocity = (0, 0)
             return
 
-        # oscillation sinusoidale accelerée
+        # accelerated sinusoidal oscillation
         elif(self._shake == SHAKE_AUTO):
             (x_ref, y_ref) = self._position_ref
             t = utils.now() - self._shake_start_time
             p = (x_ref + SHAKE_AMPLITUDE_X * math.sin(auto_shake_x(t)), y_ref)
             velocity = (p - self._body.position)/dt
 
-        # retour amorti à la position de reference
+        # cushioned return to the reference position
         elif(self._shake == SHAKE_STOPPING):
             dist = self._position_ref - self._body.position
             if(dt > 0.000001 and dist.length > 0.000001):
@@ -388,14 +388,14 @@ class Bocal(object):
             else:
                 velocity = pm.Vec2d(0, 0)
 
-            # condition d'arret de l'amorti
+            # damping stop condition
             dist_from_position_ref = (self._body.position - self._position_ref)
             if(dist_from_position_ref.length < 1):
                 velocity = (0, 0)
                 self._body.position = self._position_ref
                 self._shake = SHAKE_OFF
 
-        # se dirige vers la position cible du mouseshake
+        # moves to the mouseshake target position
         elif(self._shake == SHAKE_MOUSE):
             dist = self._shake_mouse_target - self._body.position
             velocity = SHAKE_MOUSE_SPEED * dist / dt
@@ -409,7 +409,7 @@ class Bocal(object):
 
 
     def _update_tumble(self, dt):
-        """ mode machine à laver: rotation du bocal
+        """ washing machine mode: rotation of the jar
         """
         if( self._tumble == TUMBLE_OFF):
             return 
@@ -421,14 +421,14 @@ class Bocal(object):
                 self._tumble_start_time = None
 
     def update(self):
-        """ Met à jour les position des objets graphiques depuis la simulation physique
+        """ Updates the positions of graphical objects from the physics simulation
         """
         for w in self._walls.values():
             w.update()
 
 
     def on_mouse_motion(self, x, y, dx, dy):
-        """ Secoue le bocla en fonction des mouvements de la souris
+        """ Shakes the bottle according to mouse movements
         """
         if(self._shake==SHAKE_MOUSE):
             dv = pm.Vec2d(dx, dy)/3
@@ -445,9 +445,9 @@ class Bocal(object):
         self._height_ref = bocal_h
         self._dropzone.on_resize( bocal_w, bocal_h)
         for wall in self._walls.values():
-            wall.on_resize( bocal_w, bocal_h)  # change uniquement la longueur du mur
+            wall.on_resize( bocal_w, bocal_h)  # only changes the length of the wall
         if( self._shake == SHAKE_OFF ):
-            self.shake_stop()  # pour déplacer lentement le body vers la nouvelle position de ref.
+            self.shake_stop()  # to slowly move the body to the new ref position.
 
 
     def drop_point_cursor(self, x_cursor, margin ):
