@@ -261,7 +261,7 @@ def _make_walls( space, width, height ):
 
 
 class Bocal(object):
-    """ utilitaire pour creer les parois de l'espace de jeu (space)
+    """ Utility to create the walls of the game space (space).
     """
     def __init__(self, space, center, bocal_w, bocal_h):
         # Create a static body for the container
@@ -316,7 +316,7 @@ class Bocal(object):
 
 
     def fruits_sur_maxline(self):
-        """ Id des fruits en contact avec maxline
+        """ ID of the fruits in contact with maxline.
         """
         sqi = self._space.shape_query( self._maxline.segment )
         fruit = [ s.shape.fruit for s in sqi ]
@@ -330,7 +330,7 @@ class Bocal(object):
 
 
     def _update_walls(self, dt):
-        """ deplace les murs 
+        """ Move the walls.
         """
         for wall in self._walls.values():
             local_pos = wall.bocal_position_func(self._width_ref, self._height_ref)
@@ -355,7 +355,7 @@ class Bocal(object):
 
 
     def _update_shake(self, dt):
-        """ secoue le bocal
+        """ Shake the jar.
         """
         def auto_shake_x(t):
             assert(t >= 0)
