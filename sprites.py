@@ -30,7 +30,7 @@ _g_batch = pg.graphics.Batch()   # optimization for display
 
 
 class LineSprite( pg.shapes.Line ):
-    """Graphical object of type line"""
+    """objet graphique de type ligne"""
     def __init__(self, a, b, color, thickness):
         super().__init__( x=a[0], y=a[1], x2=b[0], y2=b[1], thickness=thickness, 
             color=color, 
@@ -176,7 +176,7 @@ class FruitSprite( SuikaSprite ):
 
 
 class PreviewSprite( FruitSprite ):
-    """ Pending fruits (not associated with a pymunk object)
+    """ fruits en attente (non associé à un objet pymunk)
     """
     def __init__(self, nom, width=PREVIEW_SPRITE_SIZE, refcnt=None ):
         super().__init__(nom, r=width/2, group=sprite_group(SPRITE_GROUP_GUI) )

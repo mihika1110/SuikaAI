@@ -72,17 +72,17 @@ class WelcomeScreen:
         
         # Load fruit images
         fruit_names = [
-            'cerise.png',      # Cherry
-            'fraise.png',      # Strawberry
-            'prune.png',       # Plum
-            'orange.png',      # Orange
-            'abricot.png',     # Apricot
-            'pomme.png',       # Apple
-            'pamplemousse.png',# Grapefruit
-            'ananas.png',      # Pineapple
-            'melon.png',       # Melon
-            'tomate.png',      # Tomato
-            'pasteque.png',    # Watermelon
+            'cherry.png',          # Cherry
+            'strawberry.png',      # Strawberry
+            'plum.png',            # Plum
+            'orange.png',          # Orange
+            'apricot.png',         # Apricot
+            'apple.png',           # Apple
+            'grapefruit.png',      # Grapefruit
+            'pineapple.png',       # Pineapple
+            'melon.png',           # Melon
+            'tomato.png',          # Tomato
+            'watermelon.png',      # Watermelon
         ]
         
         self.fruit_sprites = []
@@ -210,4 +210,4 @@ class WelcomeScreen:
         try:
             pg.clock.unschedule(self.update)
         except:
-            pass
+            pass 
