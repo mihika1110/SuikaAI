@@ -1,4 +1,3 @@
-
 import random
 
 import pyglet as pg
@@ -24,7 +23,7 @@ class Ball( object ):
     def __init__(self, body, pg_shape ):
         self.body = body
 
-        # Cree la forme pyglet associée à l'objet pymunk
+        # Create the pyglet shape associated with the pymunk object
         self.pg_shape = pg_shape
 
     def is_offscreen(self) -> bool :
@@ -113,7 +112,7 @@ class HelloWorldWindow(pg.window.Window):
         rotation_limit_body = pm.Body(body_type = pm.Body.STATIC)
         rotation_limit_body.position = (200,300)
 
-        # pymunk objects
+        # pymunk objects
         body = pm.Body()
         body.position = (300, 300)
         l1 = pm.Segment(body, (-150, 0), (255, 0), 5)
@@ -143,26 +142,26 @@ class HelloWorldWindow(pg.window.Window):
 
 
     def pymunk_update(self, dt):
-        # calcule les positions des objets
+        # calculate object positions
         self.space.step( PYMUNK_PERIOD )
         self.remove_offscreen()
 
 
     def remove_offscreen(self):
-        # supprime les objets tombés
+        # remove fallen objects
         suppr_balls = [b for b in self.balls if b.is_offscreen() ]
         for b in suppr_balls:
             b.deallocate()
             self.balls.remove( b ) 
 
     def on_draw(self):
-        # met a jour les positions des objets graphiques pyglet
+        # update pyglet graphical object positions
         self.lshape.position_changed()
         for b in self.balls:
             b.position_changed()
         self.label.text = f"Balls = {len(self.balls)}"
 
-        # met à jour l'affichage
+        # update display
         self.clear()
         self.batch.draw()
 

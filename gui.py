@@ -59,7 +59,7 @@ class GameOverSprite(pg.sprite.Sprite):
     def __init__(self, width, height):
 
         img = pg.resource.image("gameover.png")
-        img.anchor_x = img.width // 2                        # ancrage au centre de l'image
+        img.anchor_x = img.width // 2                       # anchored at the center of the image
         img.anchor_y = img.height // 2
         self._gameover_img = img
         super().__init__(img, batch=sprites.batch(), group=sprites.groupe_gui() )
