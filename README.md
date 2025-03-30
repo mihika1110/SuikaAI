@@ -1,5 +1,7 @@
 🍉 Suika AI - The Ultimate Fruit Merging Puzzle Game
 
+ ![WhatsApp Image 2025-03-30 at 18 44 54_fd408cec](https://github.com/user-attachments/assets/d2c18ca2-956c-4dfb-bd28-500b519d0130)
+
 🎮 About the Game
 
 Suika AI is an AI-powered automatic version of the popular Suika game. It combines the excitement of a drag-and-match puzzle with intelligent automation, making it a fun and strategic experience. The game challenges players to merge fruits, evolve them into higher-level forms, and aim for the highest possible score before the board fills up!
