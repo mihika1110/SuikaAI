@@ -49,13 +49,13 @@ class FruitQueue( object ):
     def update(self):
         """update preview sprites positions
         """
-        # animation de défilement vers la droite
+        # right scroll animation
         if( self._shift_end_time ):
             offset = (utils.now() - self._shift_end_time) / PREVIEW_SHIFT_DELAY
             if( offset > 0):
                 self._shift_end_time = None
 
-        # condition de fin d'animation
+        # animation end condition
         if( not self._shift_end_time ):
             offset = 0
         
