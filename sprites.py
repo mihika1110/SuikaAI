@@ -148,7 +148,7 @@ class SuikaSprite ( pg.sprite.Sprite ):
             coef_size = max(0.2, a)
             coef_opacity = max( 0, a )
 
-        # blink modifie l'opacité multiplicativement avec les autres animations
+        # blink changes opacity multiplicatively with other animations
         if( self._blink_start ):
             dt = utils.now() - self._blink_start
             if( dt > 0 ):
@@ -162,12 +162,11 @@ class SuikaSprite ( pg.sprite.Sprite ):
 
 class FruitSprite( SuikaSprite ):
     def __init__(self, nom, r, group=None):
-        """  sprite pyglet associé à l'objet physique
-        """
+        #  pyglet sprite associated with the physics object
         if( group is None ):
             group = sprite_group(SPRITE_GROUP_FRUITS)
         img = pg.resource.image( f"{nom}.png" )
-        img.anchor_x = img.width // 2                 # ancrage au centre de l'image
+        img.anchor_x = img.width // 2                 # anchor to the center of the image
         img.anchor_y = img.height // 2
         self._scale_ref = (2 * r / img.width,  2 * r / img.height)
 
@@ -190,7 +189,7 @@ class PreviewSprite( FruitSprite ):
 EXPLO_SIZE = 256
 EXPLO_PNG = "explosion.png"
 EXPLO_CENTRES = [ 
-    # ligne1
+    # line 1
     (206,625),
     (437,625),
     (665,625),
@@ -198,7 +197,7 @@ EXPLO_CENTRES = [
     (1151,625),
     (1435,625),
     (1712,625),
-    #ligne2 
+    #line 2 
     (205,275),
     (456,275),
     (708,275),
@@ -224,7 +223,7 @@ def _make_sequence():
         duration=EXPLOSION_DELAY / len(seq))
 
 
-# variable globale pour éviter de re-creer la séquence à chaque explosion.
+# global variable to avoid recreating the sequence with each explosion.
 _sequence_explosion = _make_sequence()
 
 class ExplosionSprite( SuikaSprite ):
@@ -240,7 +239,7 @@ class ExplosionSprite( SuikaSprite ):
         self._scale_ref = ( scale, scale )
         self.opacity=128
 
-    # Event envoyé par pyglet automatiquement
+    # Event sent by pyglet automatically
     def on_animation_end(self):
-        # renvoie l'envènement à l'objet parent Fruit
+        # returns the event to the parent Fruit object
         self._on_explosion_end()
