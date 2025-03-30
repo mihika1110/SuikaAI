@@ -44,7 +44,7 @@ class CountDown(object):
     def update(self, deborde):
         if( deborde and not self._start_time ):
             #print( "countdown start")
-            self._start_time = now()  # ne remet pas à zero si déja en cours
+            self._start_time = now()  # does not reset if already in progress
         elif( not deborde ):
             #if( self._start_time ):
             #    print( "countdown stop")
@@ -54,9 +54,9 @@ class CountDown(object):
         self.update( False )
 
     def status(self):
-        """ Renvoie un tuple (t, texte)
-            val: valeur du compte à rebours au moment de l'appel de status()
-            txt : message d'info sur le compte à rebours
+        """ Returns a tuple (t, text)
+            val: Countdown value at the time of the status() call
+            txt: Countdown info message
         """
         if (not self._start_time):
             return (0, "")
@@ -69,7 +69,7 @@ class CountDown(object):
 
 
 # class RessourceCounter(object):
-#     """Pour vérifier que toutes les ressources sont bien libérées
+#     """To check that all resources are released
 #     """
 #     def __init__(self, nom):
 #         self._cnt = 0
