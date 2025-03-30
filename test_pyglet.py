@@ -31,7 +31,6 @@ class Ball( object ):
 
     def position_changed(self):
         self.pg_shape.x , self.pg_shape.y = self.body.position
-        #self.pg_shape.y = self.body.position.y
 
     def deallocate(self):
         circle = self.body.shapes
@@ -92,7 +91,7 @@ class HelloWorldWindow(pg.window.Window):
 
         self.space.add(body, shape)
 
-        # Cree la forme pyglet associée à l'objet pymunk
+        # Creates the pyglet shape associated with the pymunk object
         pyglet_shape = shapes.Circle(
             x=body.position.x, 
             y=body.position.y, 
@@ -173,4 +172,3 @@ class HelloWorldWindow(pg.window.Window):
 if __name__ == '__main__':
     window = HelloWorldWindow()
     pg.app.run()
-
