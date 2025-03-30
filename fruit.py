@@ -14,17 +14,17 @@ _FRUITS_DEF_ORIGINAL = [
     # The rank in this list serves as kind/points/collision_type;  
     # Value 0 is reserved for types without handlers.  
     None,       
-    {'mass':5,  'radius':30,  'name':'cerise' },
-    {'mass':7,  'radius':40,  'name':'fraise' },
-    {'mass':10, 'radius':55,  'name':'prune' },
-    {'mass':12, 'radius':70,  'name':'abricot' },
+    {'mass':5,  'radius':30,  'name':'cherry' },
+    {'mass':7,  'radius':40,  'name':'strawberry' },
+    {'mass':10, 'radius':55,  'name':'plum' },
+    {'mass':12, 'radius':70,  'name':'apricot' },
     {'mass':15, 'radius':90,  'name':'orange' },
-    {'mass':20, 'radius':120, 'name':'tomate' },
-    {'mass':25, 'radius':130, 'name':'pamplemousse' },
-    {'mass':30, 'radius':150, 'name':'pomme' },
-    {'mass':37, 'radius':190, 'name':'ananas' },
+    {'mass':20, 'radius':120, 'name':'tomato' },
+    {'mass':25, 'radius':130, 'name':'grapefruit' },
+    {'mass':30, 'radius':150, 'name':'apple' },
+    {'mass':37, 'radius':190, 'name':'pineapple' },
     {'mass':40, 'radius':230, 'name':'melon' },
-    {'mass':50, 'radius':200, 'name':'pasteque' },
+    {'mass':50, 'radius':200, 'name':'watermelon' },
 ]
 
 
