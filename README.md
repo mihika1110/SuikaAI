@@ -52,6 +52,14 @@ Create Combos: Keep merging fruits to maximize your score.
 
 Avoid Game Over: The game ends when no more valid moves are left.
 
+
+Controls:
+- Left Click: Drop fruit
+- Right Click: Shoot fruit
+- I: Toggle AI mode
+- T: Toggle training mode
+- ESC: Quit game
+
 👥 Contributors
 
 This project was built as part of the CS2203 - Artificial Intelligence course under the guidance of Dr. Chandranath Adak. The team behind Suika AI:
