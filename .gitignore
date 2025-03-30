@@ -1,0 +1,6 @@
+.vscode/launch.json
+suika.code-workspace
+
+assets/sources
+__pycache__
+.~lock.simu_shake.ods#
