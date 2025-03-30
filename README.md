@@ -36,4 +36,4 @@ Follow these steps to install and play Suika:
 - Smooth and responsive gameplay mechanics.
 
 ## Ownership
-This project is owned by Ritu Singh(2301CS74), Parul Shrivastava(2301CS75),Mihika Saxena(2301CS31), Pragya Mahajan(2302CS05) nad Juhi Sahni(2301CS88) and has been built as a part of CS2203 course under Dr. Chandranath Adak. 
+This project is owned by Ritu Singh(2301CS74), Parul Shrivastava(2301CS75),Mihika Saxena(2301CS31), Pragya Mahajan(2302CS05) and Juhi Sahni(2301CS88) and has been built as a part of CS2203 course under Dr. Chandranath Adak. 
