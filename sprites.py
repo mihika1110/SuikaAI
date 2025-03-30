@@ -26,7 +26,7 @@ def batch():            return _g_batch
 def groupe_gui():       return _groups[SPRITE_GROUP_GUI]
 def groupe_masque():    return _groups[SPRITE_GROUP_MASQUE]
 
-_g_batch = pg.graphics.Batch()   # optimisation pour l'affichage
+_g_batch = pg.graphics.Batch()   # optimization for display
 
 
 class LineSprite( pg.shapes.Line ):
@@ -39,19 +39,17 @@ class LineSprite( pg.shapes.Line ):
         self.anchor_position = (0, 0)
 
     def __del__(self):
-        self.delete()   # supprime le sprite du batch graphique
+        self.delete()   # removes the sprite from the graphics batch
         super().__del__()
 
     @classmethod
     def wall(cls, a, b):
-        """Segments pour construire le bocal
-        """
+        # Segments to build the jar
         return cls( a=a, b=b, thickness=WALL_THICKNESS, color=WALL_COLOR)
 
     @classmethod
     def redline(cls, a, b):
-        """ Ligne rouge de niveau maxi
-        """
+        # Maximum level red line
         return cls( a=a, b=b, thickness=REDLINE_THICKNESS, color=REDLINE_COLOR)
 
 
@@ -117,12 +115,12 @@ class SuikaSprite ( pg.sprite.Sprite ):
             print(f"warning: unknown visibility value {visi}")
 
 
-    # intercepte l'update du pyglet.spite.Sprite pour traiter les animations
+    # intercepts the pyglet.spite.Sprite update to process animations
     def update(self, x, y, rotation, on_animation_stop):
-        # position traitée par pyglet
+        # position processed by pyglet
         pg.sprite.Sprite.update( self, x=x, y=y, rotation=rotation )
 
-        # gestion des animations 
+        # animation management
         coef_size = 1.0
         coef_opacity = 1.0
 
@@ -144,7 +142,7 @@ class SuikaSprite ( pg.sprite.Sprite ):
             t = utils.now() - self._fadeout_start
             a =  (FADEOUT_DELAY - t) / FADEOUT_DELAY
             if( a < 0 ):
-                #self.fadeout = False   # ne supprime pas l'effet sinon le sprite reapparait
+                #self.fadeout = False   # do not remove the effect otherwise the sprite reappears
                 if( on_animation_stop ):
                     on_animation_stop()
             coef_size = max(0.2, a)
